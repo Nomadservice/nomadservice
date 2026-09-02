@@ -1,0 +1,202 @@
+Database — NomadService
+
+1. Scopo
+
+Il database di NomadService deve organizzare le informazioni relative ai servizi utili per chi vive, viaggia o si sposta in modo nomade.
+
+Il principio fondamentale è:
+
+«Il servizio è il protagonista.»
+
+Un luogo non è necessariamente l'elemento principale della ricerca. Un luogo rappresenta il contesto nel quale uno o più servizi possono essere trovati.
+
+Esempio:
+
+- Servizio: lavanderia
+- Luogo: determinata città
+- Informazioni: prezzo, accesso, orari, limitazioni, note
+
+Lo stesso luogo può quindi contenere numerosi servizi differenti.
+
+---
+
+2. Principi del modello dati
+
+Il database deve rispettare alcuni principi fondamentali:
+
+1. Separazione tra luoghi e servizi
+2. Dati strutturati quando possibile
+3. Informazioni brevi e facilmente leggibili
+4. Possibilità di indicare informazioni non completamente note
+5. Possibilità di contributi da parte degli utenti
+6. Distinzione tra informazioni certe e informazioni dichiarate dagli utenti
+7. Possibilità di aggiornare le informazioni nel tempo
+8. Nessuna necessità di registrazione per i contributi estremamente brevi
+9. Gli utenti registrati possono fornire informazioni più complete
+10. Il modello deve poter crescere senza dover essere riprogettato da zero
+
+---
+
+3. Entità principali
+
+Il modello iniziale prevede almeno le seguenti entità:
+
+- "places"
+- "services"
+- "categories"
+- "service_categories"
+- "service_information"
+- "users"
+- "contributions"
+
+La struttura potrà essere estesa successivamente.
+
+---
+
+4. Places
+
+Rappresenta il luogo fisico al quale è associato un servizio.
+
+Campi iniziali
+
+Campo| Tipo| Descrizione
+"id"| UUID| Identificativo univoco
+"name"| TEXT| Nome del luogo
+"address"| TEXT| Indirizzo, se disponibile
+"city"| TEXT| Città/località
+"region"| TEXT| Regione/provincia, se applicabile
+"country"| TEXT| Paese
+"latitude"| DECIMAL| Latitudine
+"longitude"| DECIMAL| Longitudine
+"created_at"| TIMESTAMP| Data di creazione
+"updated_at"| TIMESTAMP| Ultimo aggiornamento
+
+Note
+
+Le coordinate possono essere assenti.
+
+Non è obbligatorio conoscere immediatamente l'indirizzo completo di un luogo.
+
+---
+
+5. Services
+
+Rappresenta il singolo servizio disponibile.
+
+Il servizio è l'elemento centrale del database.
+
+Campi iniziali
+
+Campo| Tipo| Descrizione
+"id"| UUID| Identificativo univoco
+"place_id"| UUID| Luogo nel quale è disponibile
+"name"| TEXT| Nome/tipo del servizio
+"description"| TEXT| Descrizione breve
+"status"| ENUM| Stato conosciuto del servizio
+"created_at"| TIMESTAMP| Data di creazione
+"updated_at"| TIMESTAMP| Ultimo aggiornamento
+
+"status"
+
+Lo stato deve permettere almeno di distinguere:
+
+- "active"
+- "inactive"
+- "unknown"
+
+"unknown" è importante: l'assenza di informazioni non deve essere interpretata automaticamente come assenza del servizio.
+
+---
+
+6. Categories
+
+Le categorie permettono di organizzare i servizi.
+
+Esempi:
+
+- Acqua
+- Elettricità
+- Lavanderia
+- Docce
+- Servizi igienici
+- Parcheggio
+- Rifornimento
+- Smaltimento
+- Internet
+- Riparazioni
+- Alimentari
+- Trasporti
+- Altro
+
+L'elenco definitivo delle categorie sarà definito separatamente.
+
+Campi
+
+Campo| Tipo| Descrizione
+"id"| UUID| Identificativo
+"name"| TEXT| Nome categoria
+"description"| TEXT| Descrizione
+"active"| BOOLEAN| Categoria attiva/non attiva
+
+---
+
+7. Service Categories
+
+Un servizio può appartenere a più categorie.
+
+Per questo motivo la relazione tra "services" e "categories" è molti-a-molti.
+
+Campi
+
+Campo| Tipo
+"service_id"| UUID
+"category_id"| UUID
+
+La coppia "service_id + category_id" deve essere unica.
+
+---
+
+8. Service Information
+
+Le informazioni operative del servizio devono essere strutturate quando possibile.
+
+Il sistema deve poter rappresentare almeno:
+
+- esistenza del servizio
+- accesso
+- costo
+- limitazioni
+- orari
+
+Esempi
+
+Accesso
+
+- pubblico
+- clienti
+- residenti
+- autorizzazione richiesta
+- sconosciuto
+
+Costo
+
+- gratuito
+- a pagamento
+- prezzo conosciuto
+- prezzo variabile
+- sconosciuto
+
+Orari
+
+- aperto 24/7
+- orari definiti
+- stagionale
+- sconosciuto
+
+Limitazioni
+
+- altezza
+- peso
+- dimensioni
+- durata massima
+- necessità
