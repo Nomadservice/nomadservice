@@ -1,16 +1,39 @@
-## Hi there 👋
+# NomadService
 
-<!--
-**Nomadservice/nomadservice** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## Missione
 
-Here are some ideas to get you started:
+NomadService è una piattaforma collaborativa che aiuta le persone a trovare servizi utili ovunque si trovino.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+L'app è pensata per chi viaggia, lavora da remoto, vive in camper, si sposta spesso o semplicemente ha bisogno di trovare rapidamente servizi affidabili nelle vicinanze.
+
+---
+
+## Obiettivo
+
+Costruire il database di servizi collaborativo più affidabile d'Europa.
+
+---
+
+## Stato del progetto
+
+🟢 In progettazione.
+
+---
+
+## Roadmap
+
+- [x] Visione
+- [x] Filosofia
+- [x] Database
+- [x] Sistema reputazione
+- [x] Contributi anonimi
+- [ ] Wireframe
+- [ ] Flutter
+- [ ] Firebase
+- [ ] MVP
+- [ ] Beta pubblica
+- [ ] Play Store
+
+---
+
+Sviluppato con ❤️ dalla community.
